@@ -183,6 +183,33 @@ parties2020 = {
 party2020 = [parties2020[name] for name in data2020['committee_name']]
 data2020['party'] = party2020</code></pre>
 	
+<h2 >Analyzing The Data</h2>
+
+<p>Now that I had the political parties, I needed to create a variable to represent the proportion of maximum donations in each state which went to Democratic candidates.</p>
+	
+<pre><code>
+dem_percents_2016 = {}
+for state in data2016['contributor_state'].unique():
+    state_data = data2016[data2016['contributor_state']==state]
+    percent = len(state_data[state_data['party']=='D']) / len(state_data)
+    dem_percents_2016[state] = percent
+data2016['percent_dem'] = [dem_percents_2016[state] for state in data2016['contributor_state']]
+
+dem_percents_2020 = {}
+for state in data2020['contributor_state'].unique():
+    state_data = data2020[data2020['contributor_state']==state]
+    percent = len(state_data[state_data['party']=='D']) / len(state_data)
+    dem_percents_2020[state] = percent
+data2020['percent_dem'] = [dem_percents_2020[state] for state in data2020['contributor_state']]</code></pre>
+	
+<p>Finally, I needed to create a variable to represent the change in this proportion from 2016 to 2020 in each state.</p>
+	
+<pre><code>
+small2016 = data2016[['contributor_state', 'percent_dem']].drop_duplicates()
+small2020 = data2020[['contributor_state', 'percent_dem']].drop_duplicates()
+databoth = small2016.merge(small2020, on='contributor_state')
+databoth['change'] = databoth['percent_dem_y'] - databoth['percent_dem_x']</code></pre>
+	
 <h2 >Visualizing The Data</h2>
 
 <p>I wanted to visualize this data about individual states onto a map of the United States in order to make easily understandable. To do this I used the Plotly library, specifically the chloropleth function to represent data on maps.</p>
