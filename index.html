@@ -215,16 +215,22 @@ databoth['change'] = databoth['percent_dem_y'] - databoth['percent_dem_x']</code
 <p>I wanted to visualize this data about individual states onto a map of the United States in order to make easily understandable. To do this I used the Plotly library, specifically the chloropleth function to represent data on maps.</p>
 
 <pre><code>
-fig = px.choropleth(data2016, locations='contributor_state', locationmode='USA-states', scope='usa', color='percent_dem', color_continuous_scale = 'Blues', labels={'percent_dem':'Democrat Ratio'})
-fig.update_layout(title_text='2016 Ratio of Maximum Donations in Each State Given To Democrats', title_x=0.5, title_font_size = 24, geo=dict(bgcolor='rgba(0,0,0,0)'))
+fig = px.choropleth(data2016, locations='contributor_state', locationmode='USA-states', scope='usa', 
+	color='percent_dem', color_continuous_scale = 'Blues', labels={'percent_dem':'Democrat Ratio'})
+fig.update_layout(title_text='2016 Ratio of Maximum Donations in Each State Given To Democrats', 
+	title_x=0.5, title_font_size = 24, geo=dict(bgcolor='rgba(0,0,0,0)'))
 fig.show()
 
-fig = px.choropleth(data2020, locations='contributor_state', locationmode='USA-states', scope='usa', color='percent_dem', color_continuous_scale = 'Blues', labels={'percent_dem':'Democrat Ratio'})
-fig.update_layout(title_text='2020 Ratio of Maximum Donations in Each State Given To Democrats', title_x=0.5, title_font_size = 24, geo=dict(bgcolor='rgba(0,0,0,0)'))
+fig = px.choropleth(data2020, locations='contributor_state', locationmode='USA-states', scope='usa', 
+	color='percent_dem', color_continuous_scale = 'Blues', labels={'percent_dem':'Democrat Ratio'})
+fig.update_layout(title_text='2020 Ratio of Maximum Donations in Each State Given To Democrats', 
+	title_x=0.5, title_font_size = 24, geo=dict(bgcolor='rgba(0,0,0,0)'))
 fig.show()
 
-fig = px.choropleth(databoth, locations='contributor_state', locationmode='USA-states', scope='usa', color='change', color_continuous_scale = 'RdBu', labels={'change':'Change in Ratio'})
-fig.update_layout(title_text='2016 to 2020 Change in Ratio of Maximum Donations in Each State Given To Democrats', title_x=0.5, title_font_size = 26, geo=dict(bgcolor='rgba(0,0,0,0)'))
+fig = px.choropleth(databoth, locations='contributor_state', locationmode='USA-states', scope='usa', 
+	color='change', color_continuous_scale = 'RdBu', labels={'change':'Change in Ratio'})
+fig.update_layout(title_text='2016 to 2020 Change in Ratio of Maximum Donations in Each State Given To Democrats', 
+	title_x=0.5, title_font_size = 26, geo=dict(bgcolor='rgba(0,0,0,0)'))
 fig.show()</code></pre>
 	
 <center>
