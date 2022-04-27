@@ -79,7 +79,7 @@
 </center>
 	
 <h2 >Importing The Data</h2>
-iI
+
 <p>The data for maximum donations in 2016 and 2020 was easily accessible in two .csv files downloaded from the FEC website. I read them into Pandas dataframes, selected the two variables I was interested in (donor state and campaign), and dropped missing data.</p>
 
 <pre><code>
@@ -182,6 +182,23 @@ parties2020 = {
 }
 party2020 = [parties2020[name] for name in data2020['committee_name']]
 data2020['party'] = party2020</code></pre>
+	
+<h2 >Visualizing The Data</h2>
 
+<p>I wanted to visualize this data about individual states onto a map of the United States in order to make easily understandable. To do this I used the Plotly library, specifically the chloropleth function to represent data on maps.</p>
+
+<pre><code>
+fig = px.choropleth(data2016, locations='contributor_state', locationmode='USA-states', scope='usa', color='percent_dem', color_continuous_scale = 'Blues', labels={'percent_dem':'Democrat Ratio'})
+fig.update_layout(title_text='2016 Ratio of Maximum Donations in Each State Given To Democrats', title_x=0.5, title_font_size = 24, geo=dict(bgcolor='rgba(0,0,0,0)'))
+fig.show()
+
+fig = px.choropleth(data2020, locations='contributor_state', locationmode='USA-states', scope='usa', color='percent_dem', color_continuous_scale = 'Blues', labels={'percent_dem':'Democrat Ratio'})
+fig.update_layout(title_text='2020 Ratio of Maximum Donations in Each State Given To Democrats', title_x=0.5, title_font_size = 24, geo=dict(bgcolor='rgba(0,0,0,0)'))
+fig.show()
+
+fig = px.choropleth(databoth, locations='contributor_state', locationmode='USA-states', scope='usa', color='change', color_continuous_scale = 'RdBu', labels={'change':'Change in Ratio'})
+fig.update_layout(title_text='2016 to 2020 Change in Ratio of Maximum Donations in Each State Given To Democrats', title_x=0.5, title_font_size = 26, geo=dict(bgcolor='rgba(0,0,0,0)'))
+fig.show()</code></pre>
+	
 </body>
 </html>
