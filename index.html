@@ -79,7 +79,15 @@
    <pre><code><img src="Change Dems.png" width=1160px></pre></code>
 </center>
 	
-<h1 id="preamble">The Code</h1>
+<h2 >Importing The Data</h2>
+iI
+<p>The data for maximum donations in 2016 and 2020 was easily accessible in two .csv files downloaded from the FEC website. I read them into Pandas dataframes, selected the two variables I was interested in (donor state and campaign), and dropped missing data.</p>
+
+<pre><code>
+data2016 = pd.read_csv('2016_2700s.csv', low_memory=False)[['contributor_state', 'committee_name']].dropna()
+data2020 = pd.read_csv('2020_2800s.csv', low_memory=False)[['contributor_state', 'committee_name']].dropna()</code></pre>
+	
+<h2 >Manipulating The Data</h2>
 
 <p>There was no information included in this data as to which political parties the campaigns were associated with, so I added the data myself using dictionaries of the campaign names as listed in the data and a letter representing their political party affiliation. 'D' for Democrat, 'R' for Republican, 'L' for Libertarian, 'G' for Green, and 'I' for Independent.</p>
 
