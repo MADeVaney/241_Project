@@ -144,7 +144,7 @@ for state in data2016['contributor_state'].unique():
 data2016['percent_third'] = [third_percents_2016[state] for state in data2016['contributor_state']]
 # Graphing the third-party percentages for 2016
 fig = px.choropleth(data2016, locations='contributor_state', locationmode='USA-states', scope='usa', color='percent_third', color_continuous_scale = 'tempo', labels={'percent_third':'Third-Party Ratio'})
-fig.update_layout(title_text='2016 Ratio of Maximum Donations in Each State Given To Third Party Candidates', title_x=0.5, title_font_size = 24, geo=dict(bgcolor='rgba(0,0,0,0)'))
+fig.update_layout(title_text='2016 Ratio of Maximum Donations in Each State Given To Third-Party Candidates', title_x=0.5, title_font_size = 24, geo=dict(bgcolor='rgba(0,0,0,0)'))
 fig.show()
 
 # Adding third-party percentage for each state in 2020 to the dataframe
@@ -156,5 +156,5 @@ for state in data2020['contributor_state'].unique():
 data2020['percent_third'] = [third_percents_2020[state] for state in data2020['contributor_state']]
 # Graphing the third-party percentages for 2020
 fig = px.choropleth(data2020, locations='contributor_state', locationmode='USA-states', scope='usa', color='percent_third', color_continuous_scale = 'tempo', labels={'percent_third':'Third-Party Ratio'})
-fig.update_layout(title_text='2020 Ratio of Maximum Donations in Each State Given To Third Party Candidates', title_x=0.5, title_font_size = 24, geo=dict(bgcolor='rgba(0,0,0,0)'))
+fig.update_layout(title_text='2020 Ratio of Maximum Donations in Each State Given To Third-Party Candidates', title_x=0.5, title_font_size = 24, geo=dict(bgcolor='rgba(0,0,0,0)'))
 fig.show()
