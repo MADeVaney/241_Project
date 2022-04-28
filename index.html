@@ -212,7 +212,7 @@ databoth['change'] = databoth['percent_dem_y'] - databoth['percent_dem_x']</code
 	
 <h2 >Visualizing The Data</h2>
 
-<p>I wanted to visualize this data about individual states onto a map of the United States in order to make it easily understandable. To do this I used the Plotly library, specifically the chloropleth function designed to represent data on maps.</p>
+<p>I wanted to visualize this data about individual states on a map of the United States in order to make it easily understandable. To do this I used the Plotly library, specifically the chloropleth function designed to represent data on maps.</p>
 
 <pre><code>
 fig = px.choropleth(data2016, locations='contributor_state', locationmode='USA-states', scope='usa', 
@@ -244,6 +244,18 @@ fig.show()</code></pre>
 <center>
    <pre><code><img src="Change Dems.png" width=1160px></pre></code>
 </center>
+
+<h1 id="preamble">Bonus Graphs: Where are third-party candidates getting maximum donations?</h1>
+<p>I was also curious where third-party (not Democrat or Republican) campaigns were getting maximum donations, so I graphed that for 2016 and 2020 as well.</p>
+	
+<center>
+   <pre><code><img src="2016 Third.png" width=1160px></pre></code>
+</center>
+	
+<center>
+   <pre><code><img src="2020 Third.png" width=1160px></pre></code>
+</center>
+
 	
 </body>
 </html>
