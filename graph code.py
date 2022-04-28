@@ -1,10 +1,10 @@
 import pandas as pd
 import seaborn as sns
 import plotly.express as px
-
+# Reading in data
 data2016 = pd.read_csv('2016_2700s.csv', low_memory=False)[['contributor_state', 'committee_name']].dropna()
 data2020 = pd.read_csv('2020_2800s.csv', low_memory=False)[['contributor_state', 'committee_name']].dropna()
-
+# Dictionary of the political party for 2016 campaigns
 parties2016 = {
 'MARCO RUBIO FOR PRESIDENT':'R',
 'JUDD WEISS CAMPAIGN COMMITTEE':'L',
@@ -41,25 +41,22 @@ parties2016 = {
 'PEOPLE FOR ROBBY WELLS':'I',
 'WILLIE WILSON 2016':'D'
 }
-
+# Adding parties to the dataframe
 party2016 = [parties2016[name] for name in data2016['committee_name']]
-
 data2016['party'] = party2016
-
+# Adding Democrat percentage for each state to the dataframe
 dem_percents_2016 = {}
-
 for state in data2016['contributor_state'].unique():
     state_data = data2016[data2016['contributor_state']==state]
     percent = len(state_data[state_data['party']=='D']) / len(state_data)
     dem_percents_2016[state] = percent
-
 data2016['percent_dem'] = [dem_percents_2016[state] for state in data2016['contributor_state']]
-
+# Graphing 2016 Democrat data
 fig = px.choropleth(data2016, locations='contributor_state', locationmode='USA-states', scope='usa', color='percent_dem', color_continuous_scale = 'Blues', labels={'percent_dem':'Democrat Ratio'})
 fig.update_layout(title_text='2016 Ratio of Maximum Donations in Each State Given To Democrats', title_x=0.5, title_font_size = 24, geo=dict(bgcolor='rgba(0,0,0,0)'))
 fig.show()
 
-
+# Dictionary of the political party for 2020 campaigns
 parties2020 = {
     'HICKENLOOPER 2020':'D',
     'BIDEN FOR PRESIDENT':'D',
@@ -110,30 +107,54 @@ parties2020 = {
     'ALYSE FOR ALASKA':'I',
     'JOHN COWAN FOR CONGRESS, INC.':'R'
 }
-
+# Adding parties to the dataframe
 party2020 = [parties2020[name] for name in data2020['committee_name']]
-
 data2020['party'] = party2020
-
+# Adding Democrat percentage for each state to the dataframe
 dem_percents_2020 = {}
-
 for state in data2020['contributor_state'].unique():
     state_data = data2020[data2020['contributor_state']==state]
     percent = len(state_data[state_data['party']=='D']) / len(state_data)
     dem_percents_2020[state] = percent
-
 data2020['percent_dem'] = [dem_percents_2020[state] for state in data2020['contributor_state']]
-
+# Graphing 2020 Democrat data
 fig = px.choropleth(data2020, locations='contributor_state', locationmode='USA-states', scope='usa', color='percent_dem', color_continuous_scale = 'Blues', labels={'percent_dem':'Democrat Ratio'})
 fig.update_layout(title_text='2020 Ratio of Maximum Donations in Each State Given To Democrats', title_x=0.5, title_font_size = 24, geo=dict(bgcolor='rgba(0,0,0,0)'))
 fig.show()
 
-
+# Adding the change in Democrat percentage from 2016 to 2020 to the dataframe
 small2016 = data2016[['contributor_state', 'percent_dem']].drop_duplicates()
 small2020 = data2020[['contributor_state', 'percent_dem']].drop_duplicates()
 databoth = small2016.merge(small2020, on='contributor_state')
 databoth['change'] = databoth['percent_dem_y'] - databoth['percent_dem_x']
-
+# Graphing the change in Democrat percentage from 2016 to 2020
 fig = px.choropleth(databoth, locations='contributor_state', locationmode='USA-states', scope='usa', color='change', color_continuous_scale = 'RdBu', labels={'change':'Change in Ratio'})
 fig.update_layout(title_text='2016 to 2020 Change in Ratio of Maximum Donations in Each State Given To Democrats', title_x=0.5, title_font_size = 26, geo=dict(bgcolor='rgba(0,0,0,0)'))
+fig.show()
+
+
+
+
+# Adding third-party percentage for each state in 2016 to the dataframe
+third_percents_2016 = {}
+for state in data2016['contributor_state'].unique():
+    state_data = data2016[data2016['contributor_state']==state]
+    percent = (len(state_data[state_data['party']=='L']) + len(state_data[state_data['party']=='G']) + len(state_data[state_data['party']=='I']))/ len(state_data)
+    third_percents_2016[state] = percent
+data2016['percent_third'] = [third_percents_2016[state] for state in data2016['contributor_state']]
+# Graphing the third-party percentages for 2016
+fig = px.choropleth(data2016, locations='contributor_state', locationmode='USA-states', scope='usa', color='percent_third', color_continuous_scale = 'tempo', labels={'percent_third':'Third-Party Ratio'})
+fig.update_layout(title_text='2016 Ratio of Maximum Donations in Each State Given To Third Party Candidates', title_x=0.5, title_font_size = 24, geo=dict(bgcolor='rgba(0,0,0,0)'))
+fig.show()
+
+# Adding third-party percentage for each state in 2020 to the dataframe
+third_percents_2020 = {}
+for state in data2020['contributor_state'].unique():
+    state_data = data2020[data2020['contributor_state']==state]
+    percent = (len(state_data[state_data['party']=='L']) + len(state_data[state_data['party']=='G']) + len(state_data[state_data['party']=='I']))/ len(state_data)
+    third_percents_2020[state] = percent
+data2020['percent_third'] = [third_percents_2020[state] for state in data2020['contributor_state']]
+# Graphing the third-party percentages for 2020
+fig = px.choropleth(data2020, locations='contributor_state', locationmode='USA-states', scope='usa', color='percent_third', color_continuous_scale = 'tempo', labels={'percent_third':'Third-Party Ratio'})
+fig.update_layout(title_text='2020 Ratio of Maximum Donations in Each State Given To Third Party Candidates', title_x=0.5, title_font_size = 24, geo=dict(bgcolor='rgba(0,0,0,0)'))
 fig.show()
