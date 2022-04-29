@@ -212,7 +212,7 @@ databoth['change'] = databoth['percent_dem_y'] - databoth['percent_dem_x']</code
 	
 <h2 >Visualizing The Data</h2>
 
-<p>I wanted to visualize this data about individual states on a map of the United States in order to make it easily understandable. To do this I used the Plotly library, specifically the chloropleth function designed to represent data on maps.</p>
+<p>I wanted to visualize this data about individual states on a map of the United States in order to make it easily understandable. To do this I used the Plotly library, specifically the choropleth function designed to represent data on maps.</p>
 
 <pre><code>
 fig = px.choropleth(data2016, locations='contributor_state', locationmode='USA-states', scope='usa', 
